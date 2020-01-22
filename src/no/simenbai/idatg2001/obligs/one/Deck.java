@@ -18,11 +18,14 @@ public class Deck {
     public Collection<Card> assign(int n) {
         if (n >= 1 && n <= 52) {
             ArrayList<Card> cards = new ArrayList<>();
-            Random random = new Random();
             ArrayList<Integer> selectedCards = new ArrayList<>();
+
+            Random random = new Random();
             //Get an int array of n size from 1 to 52
-            while (selectedCards.size() != n) {
-                int number = random.nextInt(52);
+            while (selectedCards.size() <= n) {
+                //Tilfeldig tall fra og med 0 til bound (52)
+                //Tall fra 0 - 51
+                int number = random.nextInt(deck.size());
                 if (!selectedCards.contains(number)) {
                     selectedCards.add(number);
                     cards.add(deck.get(number));
@@ -32,6 +35,19 @@ public class Deck {
         }
         System.out.println("Assign needs a number between 1 and 52");
         return null;
+    }
+
+    public Collection<Card> assignShuffeled(int n) {
+        //Shuffle the deck of cards
+        Collections.shuffle(deck);
+        //New ArrayList for the cards that will be returned
+        ArrayList<Card> cards = new ArrayList<>();
+        //Go through the n first cards
+        for (int i = 0; i < n; i++) {
+            //Add the i card into the ArrayList of the response
+            cards.add(deck.get(i));
+        }
+        return cards;
     }
 
     public static ArrayList<Card> collectHearts(ArrayList<Card> suit) {
